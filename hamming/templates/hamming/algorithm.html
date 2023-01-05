@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	<div class="container mt-3">
+		<div class="row">
+			<!--         <h1 style="text-align:center;">Код Хемінга</h1> -->
+		</div>
+		<div class="row gx-5 mt-3 mx-3">
+			<div class="col-sm-6 pe-5">
+				<div class="container text-center">
+					<h5 class="card-title">
+					Кодування
+					</h5>
+					<p class="card-text">
+						<div class="mb-3">
+							<label class="form-label text-muted" for="exampleFormControlInput1">
+								Введіть символ з таблиці ASCII
+							</label>
+							<input class="form-control" id="symbol" maxlength="4" type="text">
+							</input>
+						</div>
+					</p>
+					<a class="btn btn-primary" onclick="HammingCode()">
+						Кодувати
+					</a>
+				</div>
+				<div class="alert alert-primary w-50 mx-auto mt-3" id="code" role="alert">
+					Код:
+				</div>
+			</div>
+			<div class="col-sm-6 ps-5">
+				<div class="container text-center">
+					<h5 class="card-title">
+					Декодування
+					</h5>
+					<p class="card-text">
+						<div class="mb-3">
+							<label class="form-label text-muted" for="exampleFormControlInput1">
+								Введіть код Хемінга
+							</label>
+							<input class="form-control" id="binary_code" maxlength="11" onkeypress="return BinaryInput(event);"
+							size="11" type="text" value="">
+							</input>
+						</div>
+					</p>
+					<a class="btn btn-primary" onclick="HammingDecode()">
+						Декодувати
+					</a>
+				</div>
+				<div class="alert alert-primary w-75 mx-auto mt-3" role="alert">
+					<ul>
+						<li id="bad-bit">
+							Помилковий біт:
+						</li>
+						<li id="right-code">
+							Правильний код:
+						</li>
+						<li id="coded-symbol">
+							Закодований символ:
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table class="big-table" id="big-table">
+				<tbody>
+					<tr>
+						<td></td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+						<td>11</td>
+						<td style="width:5%;">Контр.парн.</td>
+						<td style="width:7%;">Контр.біт</td>
+					</tr>
+					<tr>
+						<td style="width: 7%">№ розряду</td>
+						<td>0001</td>
+						<td>0010</td>
+						<td>0011</td>
+						<td>0100</td>
+						<td>0101</td>
+						<td>0110</td>
+						<td>0111</td>
+						<td>1000</td>
+						<td>1001</td>
+						<td>1010</td>
+						<td>1001</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Розп.розр.</td>
+						<td>p1</td>
+						<td>p2</td>
+						<td>d1</td>
+						<td>p3</td>
+						<td>d2</td>
+						<td>d3</td>
+						<td>d4</td>
+						<td>p4</td>
+						<td>d5</td>
+						<td>d6</td>
+						<td>d7</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Прийн.код</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>p1</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td id="p1"></td>
+						<td id="k1"></td>
+					</tr>
+					<tr>
+						<td>p2</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td id="p2"></td>
+						<td id="k2"></td>
+					</tr>
+					<tr>
+						<td>p3</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td id="p3"></td>
+						<td id="k3"></td>
+					</tr>
+					<tr>
+						<td>p4</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td id="p4"></td>
+						<td id="k4"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row">
+			<table class="small-table" id="small-table">
+				<tbody>
+					<tr>
+						<td></td>
+						<td>p1</td>
+						<td>p2</td>
+						<td>p3</td>
+						<td>p4</td>
+						<td>Сума</td>
+					</tr>
+					<tr>
+						<td>У двійковому представленні</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>У десятковому представленні</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+<script src="{% static 'hamming/js/index.js' %}">
+</script>
+<link rel="stylesheet" href="{% static "hamming/css/style.css" %}" type="text/css"/>
+{% endblock %}

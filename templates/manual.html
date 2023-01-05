@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<script crossorigin="anonymous" integrity="sha512-g16L6hyoieygYYZrtuzScNFXrrbJo/lj9+1AYsw+0CYYYZ6lx5J3x9Yyzsm+D37/7jMIGh0fDqdvyYkNWbuYuA==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js">
+</script>
+<script crossorigin="anonymous" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+</script>
+<script type="text/javascript">
+    function ShowPdf1(){
+		let viewpdf1 = $("#viewpdf1");
+		PDFObject.embed("{% static 'pdf/TIK-1.pdf' %}", viewpdf1);
+}
+	function ShowPdf2(){
+		let viewpdf2 = $("#viewpdf2");
+		PDFObject.embed("{% static 'pdf/TIK-2.pdf' %}", viewpdf2);
+}
+</script>
+<div class="container text-center">
+    <div class="my-3">
+        <!-- Ссылки для переключения видимости collapse-элементов -->
+        <a class="btn-lg btn btn-primary btn-target" data-target="#target-1" onclick="ShowPdf1()">
+            ТІК Частина 1
+        </a>
+        <a class="btn-lg btn btn-primary btn-target" data-target="#target-2" onclick="ShowPdf2()">
+            ТІК Частина 2
+        </a>
+    </div>
+    <!-- #target-1, #target-2, #target-3 -->
+    <div id="target-container">
+        <div class="row">
+            <div class="col">
+                <div class="collapse" id="target-1">
+                    <div class="" id="viewpdf1" style="height:800px;">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="collapse" id="target-2">
+                        <div class="" id="viewpdf2" style="height:800px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+      const collapseElements = document.querySelectorAll('#target-container .collapse');
+      collapseElements.forEach(collapseEl => {
+        new bootstrap.Collapse(collapseEl, { toggle: false, parent: '#target-container' });
+      })
+      document.addEventListener('click', (e) => {
+        if (!e.target.dataset.target) {
+          return;
+        }
+        const collapseElement = document.querySelector(e.target.dataset.target);
+        const collapse = bootstrap.Collapse.getInstance(collapseElement);
+        collapse.toggle();
+      });
+
+    });
+    </script>
+    {% endblock %}
+</div>
