@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', RedirectView.as_view(url='hamming/')),
-    path('hamming/', views.hamming_algorithm),
+    path('hamming/', views.hamming_algorithm, name='hamming'),
 ]

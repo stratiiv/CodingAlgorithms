@@ -28,7 +28,7 @@
                             </a>
                         </li> {% endcomment %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/hamming">
+                            <a class="nav-link" href="{% url 'hamming' %}">
                                 Код Хемінга
                             </a>
                         </li>
@@ -39,12 +39,12 @@
                         </li>
                     
                         <li class="nav-item">
-                            <a aria-current="page" class="nav-link" href="/manual">
+                            <a aria-current="page" class="nav-link" href="{% url 'manual' %}">
                                 Посібник з ТІК
                             </a>
                         </li>
                     </ul>
-                    <a class="navbar-brand mb-0 h1" href="/hamming">
+                    <a class="navbar-brand mb-0 h1" href="/">
                         Алгоритми кодування інформації
                     </a>
                 </div>
@@ -54,10 +54,6 @@
         </script>
 
 <script type="text/javascript">
-    function(){
-        var kittySays="Meow";
-    }();
-    console.log(kittySays);
     const currentLocation=location.href;
     const menuItem=document.querySelectorAll('a');
     const menuLength=menuItem.length;
