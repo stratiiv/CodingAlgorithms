@@ -99,14 +99,13 @@ function HammingDecode() {
     let output = binary_code.join('');
     let binary = '';
     binary += output[2] + output.slice(4, 7) + output.slice(8, 11);
-    console.log(binary);
     binary = convertToAscii(binary);
-    console.log(binary);
     document.getElementById('bad-bit').textContent = 'Помилковий біт:' + ' ' + (bad_bit == 0 ? 'немає' : bad_bit);
     document.getElementById('right-code').textContent = 'Правильний код:' + ' ' + output;
     document.getElementById('coded-symbol').textContent = 'Закодований символ:' + ' ' + binary;
     let big_table = document.getElementById('big-table');
-    //big table fill
+
+    // big table fill
     for (let i = 1; i < 12; i++) {
         big_table.rows[3].cells[i].textContent = input[i - 1];
     }
@@ -123,7 +122,8 @@ function HammingDecode() {
     for (let i = 8; i < 12; i++) {
         big_table.rows[7].cells[i].textContent = input[i - 1];
     }
-    //Colors set
+
+    // Colors set
     if (bits_check[1] == false) {
         document.getElementById('p1').style.backgroundColor = 'red'
         document.getElementById('p1').textContent = 'Fail';
@@ -160,7 +160,8 @@ function HammingDecode() {
         document.getElementById('p4').textContent = 'Pass';
         document.getElementById('k4').textContent = 0;
     }
-    //small table fill
+    
+    // small table fill
     let small_table = document.getElementById('small-table');
     for (let i = 1; i < 5; i++) {
         small_table.rows[1].cells[i].textContent = bits_check_numlist[i - 1]
