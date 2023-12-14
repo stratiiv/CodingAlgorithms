@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Кодування Хаффмана</h2>
+
+  <div class="row">
+      <div class="col">
+          <label for="inputData" class="form-label">Введіть дані:</label>
+          <input type="text" class="form-control" id="inputData" placeholder="Введіть ваші дані тут" />
+      </div>
+      <div class="col" id="additionalInfo">
+          <strong>Ентропія:</strong> <span id="entropy"></span><br />
+          <strong>Кількість бітів:</strong> <span id="numberOfBits"></span><br />
+          <strong>Середня довжина коду:</strong> <span id="averageCodeLength"></span><br />
+          <strong>Ефективність коду:</strong> <span id="codeEfficiency"></span>
+      </div>
+  </div>
+  <button type="button" class="btn btn-primary" onclick="processData()">Кодувати дані</button>
+
+  <div id="binaryOutput" class="mt-3">
+      <strong>Бінарний вивід:</strong> <span id="binaryRepresentation"></span>
+  </div>
+
+  <table class="table mt-3">
+      <thead>
+          <tr>
+              <th>Символ</th>
+              <th>ASCII</th>
+              <th>Частота</th>
+              <th>Код</th>
+          </tr>
+      </thead>
+      <tbody id="outputTableBody"></tbody>
+  </table>
+</div>
+
+  <script src="{% static 'huffman/js/huffman.js' %}"></script>
+{% endblock %}
