@@ -62,11 +62,10 @@ function processData() {
   const root = buildShannonFanoTree(inputData);
   const codes = generateCodes(root);
 
-  // Display the binary representation of the entire encoded output
   const binaryRepresentation = document.getElementById('binaryRepresentation');
   binaryRepresentation.textContent = inputData.split('').map(char => codes[char]).join('');
 
-  // Display results in the table
+
   const outputTableBody = document.getElementById('outputTableBody');
   outputTableBody.innerHTML = '';
   for (const [symbol, frequency] of frequencyMap) {
@@ -81,7 +80,7 @@ function processData() {
       `;
   }
 
-  // Calculate and display additional information
+
   const entropy = calculateEntropy(frequencyMap);
   const numberOfBits = Object.values(codes).join('').length;
   const averageCodeLength = Array.from(frequencyMap.entries()).reduce((averageLength, [symbol, freq]) => averageLength + (freq / inputData.length) * codes[symbol].length, 0);
